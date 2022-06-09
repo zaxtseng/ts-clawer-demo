@@ -46,30 +46,20 @@ class Crawler {
         if (fs.existsSync(filePath)) {
             // 存在
             fileContent = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
-
-            // 读取文件
-            // const fileContent = fs.readFileSync(filePath, 'utf-8')
-            // // 转换成对象
-            // const fileData = JSON.parse(fileContent)
-            // // 合并
-            // const finalData = {
-            //     time: courseInfo.time,
-            //     data: [...fileData.data, ...courseInfo.data]
-            // }
-            // // 写入文件
-            // fs.writeFileSync(filePath, JSON.stringify(finalData))
         }
         // 修改内容格式为键值对
         fileContent[courseInfo.time] = courseInfo.data
         // 写入文件
-        fs.writeFileSync(filePath, JSON.stringify(fileContent))
+        return fileContent
     }
     // 启动爬虫
     public async initSpiderProcess() {
+        const filePath = path.resolve(__dirname,'../data/course.json')
         const html = await this.getRawHtml()
         const courseResult = this.getJsonInfo(html)
         // 存储课程信息
-        this.generateJsonFile(courseResult)
+        const fileContent = this.generateJsonFile(courseResult)
+        fs.writeFileSync(filePath, JSON.stringify(fileContent))
     }
     constructor() {
         this.initSpiderProcess();
