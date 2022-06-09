@@ -1,0 +1,21 @@
+{
+  "name": "ts-clawer-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node ./src/crowller.ts"
+  },
+  "repository": "git@github.com:zaxtseng/ts-clawer-demo.git",
+  "author": "zax",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/cheerio": "^0.22.31",
+    "@types/superagent": "^4.1.14",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.3"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.11",
+    "superagent": "^7.1.6"
+  }
+}
