@@ -14,17 +14,17 @@ class Crawler {
 
     
     // 获取课程信息
-    public async getRawHtml() {
+    private async getRawHtml() {
         const result = await superagent.get(this.url)
         return result.text
     }
     
     // 写入文件
-    public writeFile(filePath: string, data: string) {
+    private writeFile(filePath: string, data: string) {
         fs.writeFileSync(filePath, data)
     }
     // 启动爬虫
-    public async initSpiderProcess() {
+    private async initSpiderProcess() {
         const html = await this.getRawHtml()
         const fileContent = this.analyzer.analyze(html, this.filePath)
         // 存储课程信息
@@ -36,5 +36,5 @@ class Crawler {
 }
 const url = `https://yunp.top/app`;
 
-const analyzer = new DellAnalyzer()
+const analyzer = DellAnalyzer.getInstance()
 new Crawler(url, analyzer);

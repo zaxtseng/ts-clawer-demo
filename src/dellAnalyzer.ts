@@ -1,15 +1,15 @@
 /**
  * 文件分析工具
  */
- import cheerio from 'cheerio'
- import fs from 'fs'
+import cheerio from 'cheerio'
+import fs from 'fs'
 import { IAnalyzer } from './crowller'
 
- interface ICourse {
+interface ICourse {
     title: string
     price: string
 }
- interface ICourseData {
+interface ICourseData {
     time: number
     data: ICourse[]
 }
@@ -18,6 +18,15 @@ interface IFileContent {
 }
 
 class DellAnalyzer implements IAnalyzer {
+    private static instance: DellAnalyzer
+    static getInstance() {
+        if (!DellAnalyzer.instance) {
+            DellAnalyzer.instance = new DellAnalyzer()
+        }
+        return DellAnalyzer.instance
+    }
+    // 改成单例模式
+    private constructor() { }
     // 处理课程信息
     private getJsonInfo(html: string) {
         const courseInfos: ICourse[] = []
@@ -27,7 +36,7 @@ class DellAnalyzer implements IAnalyzer {
         courseRow.map((index, element) => {
             const title = $(element).find('.font-weight-bold').eq(0).text()
             const price = $(element).find('.font-weight-bold').eq(1).text().replace(/[\s]/g, '')
-            courseInfos.push({title,price})
+            courseInfos.push({ title, price })
         })
         // console.log('courseInfos: ', courseInfos);
         return {
@@ -57,5 +66,6 @@ class DellAnalyzer implements IAnalyzer {
         const fileContent = this.generateJsonFile(courseResult, filePath)
         return JSON.stringify(fileContent)
     }
+
 }
 export default DellAnalyzer
