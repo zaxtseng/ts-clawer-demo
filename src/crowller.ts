@@ -11,11 +11,13 @@ interface ICourseData {
     time: number
     data: ICourse[]
 }
-interface IfileContent {
+interface IFileContent {
     [key: number]: ICourse[]
 }
 class Crawler {
     private url = `https://yunp.top/app`;
+    private filePath = path.resolve(__dirname,'../data/course.json')
+
     // 处理课程信息
     public getJsonInfo(html: string) {
         const courseInfos: ICourse[] = []
@@ -41,7 +43,7 @@ class Crawler {
     generateJsonFile(courseInfo: ICourseData) {
         // 文件路径
         const filePath = path.resolve(__dirname,'../data/course.json')
-        let fileContent: IfileContent = {}
+        let fileContent: IFileContent = {}
         // 写入文件,判断文件是否存在
         if (fs.existsSync(filePath)) {
             // 存在
@@ -52,14 +54,17 @@ class Crawler {
         // 写入文件
         return fileContent
     }
+    // 写入文件
+    public writeFile(filePath: string, data: string) {
+        fs.writeFileSync(filePath, JSON.stringify(data))
+    }
     // 启动爬虫
     public async initSpiderProcess() {
-        const filePath = path.resolve(__dirname,'../data/course.json')
         const html = await this.getRawHtml()
         const courseResult = this.getJsonInfo(html)
         // 存储课程信息
         const fileContent = this.generateJsonFile(courseResult)
-        fs.writeFileSync(filePath, JSON.stringify(fileContent))
+        this.writeFile(this.filePath, JSON.stringify(fileContent))
     }
     constructor() {
         this.initSpiderProcess();
