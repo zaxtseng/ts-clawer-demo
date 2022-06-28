@@ -12,13 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * 纯粹爬取工具类
- */
 const superagent_1 = __importDefault(require("superagent"));
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-const dellAnalyzer_1 = __importDefault(require("./dellAnalyzer"));
 class Crawler {
     constructor(url, analyzer) {
         this.url = url;
@@ -26,27 +22,21 @@ class Crawler {
         this.filePath = path_1.default.resolve(__dirname, '../data/course.json');
         this.initSpiderProcess();
     }
-    // 获取课程信息
     getRawHtml() {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield superagent_1.default.get(this.url);
             return result.text;
         });
     }
-    // 写入文件
     writeFile(filePath, data) {
         fs_1.default.writeFileSync(filePath, data);
     }
-    // 启动爬虫
     initSpiderProcess() {
         return __awaiter(this, void 0, void 0, function* () {
             const html = yield this.getRawHtml();
             const fileContent = this.analyzer.analyze(html, this.filePath);
-            // 存储课程信息
             this.writeFile(this.filePath, fileContent);
         });
     }
 }
-const url = `https://yunp.top/app`;
-const analyzer = dellAnalyzer_1.default.getInstance();
-new Crawler(url, analyzer);
+exports.default = Crawler;

@@ -4,7 +4,7 @@
 import superagent from 'superagent'
 import fs from 'fs'
 import path from 'path'
-import DellAnalyzer from './dellAnalyzer'
+
 
 export interface IAnalyzer {
     analyze: (html:string, filePath:string) => string
@@ -34,7 +34,4 @@ class Crawler {
         this.initSpiderProcess();
     }
 }
-const url = `https://yunp.top/app`;
-
-const analyzer = DellAnalyzer.getInstance()
-new Crawler(url, analyzer);
+export default Crawler;
