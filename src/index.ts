@@ -1,14 +1,18 @@
-import express, { Request,Response,NextFunction } from 'express'
+import express from 'express'
 import bodyParser from 'body-parser'
 import router from './router'
+import cookieSession from 'cookie-session';
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false}))
-app.use((req: Request, res: Response,next: NextFunction) => {
-    req.name = 'dell'
-    next()
-})
+app.use(cookieSession({
+    name: 'session',
+    keys: ['teacher dell'],
+    maxAge: 24 * 60 * 60 * 1000
+}))
+
+
 app.use(router)
 
 app.listen(5001, () => {

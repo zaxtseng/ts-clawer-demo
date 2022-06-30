@@ -52,7 +52,7 @@ class DellAnalyzer implements IAnalyzer {
         let fileContent: IFileContent = {}
         // 写入文件,判断文件是否存在
         if (fs.existsSync(filePath)) {
-            // 存在
+            // 存在 这里应该判断文件内容不为空,暂不写
             fileContent = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
         }
         // 修改内容格式为键值对

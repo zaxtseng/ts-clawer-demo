@@ -10,7 +10,7 @@ export interface IAnalyzer {
     analyze: (html:string, filePath:string) => string
 }
 class Crawler {
-    private filePath = path.resolve(__dirname,'../data/course.json')
+    private filePath = path.resolve(__dirname,'../../data/course.json')
 
     
     // 获取课程信息
