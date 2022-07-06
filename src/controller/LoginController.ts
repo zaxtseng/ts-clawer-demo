@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express'
 import 'reflect-metadata'
-import { controller, get, post } from './decorator'
+import { controller, get, post } from '../decorator'
 import { getResponseData } from '../utils/util'
 
 interface BodyRequest extends Request {
@@ -11,11 +11,14 @@ interface BodyRequest extends Request {
 
 
 @controller
-class LoginController {
+export class LoginController {
+    static isLogin(req: BodyRequest): boolean {
+        return !!(req.session ? req.session.login : false)
+    }
     @post('/login')
-    login(req: BodyRequest, res: Response) {
+    login(req: BodyRequest, res: Response): void {
         const { password } = req.body;
-        const isLogin = req.session ? req.session.login : false;
+        const isLogin = LoginController.isLogin(req);
         if (isLogin) {
             res.json(getResponseData(false,"already login!"))
         } else {
@@ -29,7 +32,7 @@ class LoginController {
     }
 
     @get('/logout')
-    logout(req: BodyRequest, res: Response) {
+    logout(req: BodyRequest, res: Response): void {
         if (req.session) {
             req.session.login = undefined;
             res.json(getResponseData(true))
@@ -37,9 +40,9 @@ class LoginController {
     }
 
     @get('/')
-    home(req: BodyRequest, res: Response) {
+    home(req: BodyRequest, res: Response): void {
         // 判断登录
-        const isLogin = req.session ? req.session.login : false
+        const isLogin = LoginController.isLogin(req);
         if (isLogin) {
             res.send(`
             <html>

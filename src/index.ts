@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 // import router from './router'
 import './controller/LoginController'
 import './controller/crowllerController'
-import { router } from './controller/decorator';
+import router from './router';
 import cookieSession from 'cookie-session';
 
 const app = express();
