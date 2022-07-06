@@ -1,7 +1,11 @@
+import fs from 'fs'
+import path from 'path'
 import { Router, Request, Response, NextFunction } from 'express'
 import 'reflect-metadata'
-import { controller, get, post } from './decorator'
+import { controller, get, use } from './decorator'
 import { getResponseData } from '../utils/util'
+import Crawler from '../utils/crowller'
+import DellAnalyzer from '../utils/dellAnalyzer'
 
 interface BodyRequest extends Request {
     body: {
@@ -9,22 +13,37 @@ interface BodyRequest extends Request {
     }
 }
 
+// 判断登录的中间件
+const checkLogin = (req: BodyRequest, res: Response, next: NextFunction) => {
+    const isLogin = req.session ? req.session.login : false;
+    if (isLogin) {
+        next()
+    } else {
+        res.json(getResponseData(null,"请先登录!"))
+    }
+}
 
 @controller
-class LoginController {
-    @post('/login')
-    login(req: BodyRequest, res: Response) {
-        const { password } = req.body;
-        const isLogin = req.session ? req.session.login : false;
-        if (isLogin) {
-            res.json(getResponseData(false,"already login!"))
-        } else {
-            if (password === '123' && req.session) {
-                req.session.login = true
-                res.json(getResponseData(true))
-            } else {
-                res.json(getResponseData(false,"login error"))
-            }
+class CrowllerController {
+    @get('/getData')
+    @use(checkLogin)
+    getData(req: BodyRequest, res: Response) {
+        const url = `https://yunp.top/app`;
+        const analyzer = DellAnalyzer.getInstance()
+        new Crawler(url, analyzer);
+    
+        res.send('getData Success!')
+    }
+
+    @get('/showData')
+    @use(checkLogin)
+    showData(req: BodyRequest, res: Response) {
+        try {
+            const position = path.resolve(__dirname, '../../data/course.json');
+            const result = fs.readFileSync(position, 'utf-8')
+            res.json(JSON.parse(result))
+        } catch (e) {
+            res.send('请登录后查看')
         }
     }
 

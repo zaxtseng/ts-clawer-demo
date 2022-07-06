@@ -2,6 +2,7 @@ import express from 'express'
 import bodyParser from 'body-parser'
 // import router from './router'
 import './controller/LoginController'
+import './controller/crowllerController'
 import { router } from './controller/decorator';
 import cookieSession from 'cookie-session';
 
