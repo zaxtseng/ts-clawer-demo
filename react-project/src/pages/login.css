@@ -1,0 +1,36 @@
+.box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+
+    /* width:300px;
+    height:40px;
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:auto; */
+
+    /* position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left:-50px;
+        margin-top:-50px;
+        width:300px;
+        height:40px; */
+}
+#normal_login,.login-form {
+    max-width: 300px;
+  }
+  #normal_login .login-form-forgot {
+    float: right;
+  }
+  #normal_login .ant-col-rtl .login-form-forgot {
+    float: left;
+  }
+  #normal_login .login-form-button {
+    width: 100%;
+  }
