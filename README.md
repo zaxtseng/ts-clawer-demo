@@ -5,4 +5,10 @@
 ## simple分支
 为单例模式
 ## express分支
-包含express服务器
+包含express服务器   
+对express解释文件的补充   
+新建文件custom.d.ts,使用namespace融合到Request中.
+对路由及请求使用装饰器.
+
+### 完善登录功能
+使用cookieSession中间件完善登录.
