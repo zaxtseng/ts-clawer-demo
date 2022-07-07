@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CrowllerController = void 0;
 var fs_1 = __importDefault(require("fs"));
 var path_1 = __importDefault(require("path"));
-var express_1 = require("express");
 require("reflect-metadata");
 var decorator_1 = require("../decorator");
 var util_1 = require("../utils/util");
@@ -49,19 +48,18 @@ var CrowllerController = (function () {
             res.json((0, util_1.getResponseData)(false, '请登录后查看'));
         }
     };
-    var _a, _b;
     __decorate([
         (0, decorator_1.get)('/getData'),
         (0, decorator_1.use)(checkLogin),
         __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object, typeof (_a = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _a : Object]),
+        __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", void 0)
     ], CrowllerController.prototype, "getData", null);
     __decorate([
         (0, decorator_1.get)('/showData'),
         (0, decorator_1.use)(checkLogin),
         __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object, typeof (_b = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _b : Object]),
+        __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", void 0)
     ], CrowllerController.prototype, "showData", null);
     CrowllerController = __decorate([

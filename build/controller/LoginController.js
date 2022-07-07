@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LoginController = void 0;
 require("reflect-metadata");
-var express_1 = require("express");
 var decorator_1 = require("../decorator");
 var util_1 = require("../utils/util");
 var LoginController = (function () {
@@ -52,23 +51,23 @@ var LoginController = (function () {
             res.send("\n                <html>\n                    <body>\n                        <form method=\"post\" action=\"/login\">\n                            <input type=\"password\" name=\"password\" />\n                            <button>login</button>\n                        </form>\n                    </body>\n                </html>\n            ");
         }
     };
-    var LoginController_1, _a, _b, _c;
+    var LoginController_1;
     __decorate([
         (0, decorator_1.post)('/login'),
         __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object, typeof (_a = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _a : Object]),
+        __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", void 0)
     ], LoginController.prototype, "login", null);
     __decorate([
         (0, decorator_1.get)('/logout'),
         __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object, typeof (_b = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _b : Object]),
+        __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", void 0)
     ], LoginController.prototype, "logout", null);
     __decorate([
         (0, decorator_1.get)('/'),
         __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object, typeof (_c = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _c : Object]),
+        __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", void 0)
     ], LoginController.prototype, "home", null);
     LoginController = LoginController_1 = __decorate([

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var body_parser_1 = __importDefault(require("body-parser"));
 require("./controller/LoginController");
-require("./controller/CrowllerController");
+require("./controller/crowllerController");
 var cookie_session_1 = __importDefault(require("cookie-session"));
 var router_1 = __importDefault(require("./router"));
 var app = (0, express_1.default)();
