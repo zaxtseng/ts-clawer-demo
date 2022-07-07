@@ -17,4 +17,4 @@
 ### 原因
 使用for...in遍历原型上的方法,es6中原型上的方法无法枚举.
 ### 解决方法
-tsconfig.json文件中改为`target:es5`即可.
+tsconfig.json文件中改为`target:es5`即可
