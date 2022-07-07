@@ -1,16 +1,16 @@
-import { Router, Request, Response, NextFunction } from 'express'
 import 'reflect-metadata'
+import { Request, Response } from 'express'
 import { controller, get, post } from '../decorator'
 import { getResponseData } from '../utils/util'
 
 interface BodyRequest extends Request {
     body: {
-        [key: string]: string
+        [key: string]: string | undefined
     }
 }
 
 
-@controller
+@controller('/')
 export class LoginController {
     static isLogin(req: BodyRequest): boolean {
         return !!(req.session ? req.session.login : false)
@@ -35,14 +35,16 @@ export class LoginController {
     logout(req: BodyRequest, res: Response): void {
         if (req.session) {
             req.session.login = undefined;
-            res.json(getResponseData(true))
         }
+        res.json(getResponseData(true))
     }
 
     @get('/')
     home(req: BodyRequest, res: Response): void {
+        // console.log('req: ', req);
         // 判断登录
         const isLogin = LoginController.isLogin(req);
+        // console.log('isLogin: ', isLogin);
         if (isLogin) {
             res.send(`
             <html>

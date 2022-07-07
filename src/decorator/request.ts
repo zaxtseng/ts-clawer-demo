@@ -6,10 +6,10 @@ enum Methods {
 }
 //使用装饰器
 function getRequestDecorator(type: Methods) {
-    return function(path: string) {
-    return function(target: LoginController | CrowllerController, key: string) {
-        Reflect.defineMetadata('path', path, target, key)
-        Reflect.defineMetadata('method', type, target, key)
+    return function (path: string) {
+        return function (target: LoginController | CrowllerController, key: string) {
+            Reflect.defineMetadata('path', path, target, key)
+            Reflect.defineMetadata('method', type, target, key)
         }
     }
 }

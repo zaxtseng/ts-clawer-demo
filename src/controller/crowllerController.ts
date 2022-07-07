@@ -9,12 +9,12 @@ import DellAnalyzer from '../utils/dellAnalyzer'
 
 interface BodyRequest extends Request {
     body: {
-        [key: string]: string
+        [key: string]: string | undefined
     }
 }
 
 // 判断登录的中间件
-const checkLogin = (req: BodyRequest, res: Response, next: NextFunction): void => {
+const checkLogin = (req: Request, res: Response, next: NextFunction): void => {
     const isLogin = !!(req.session ? req.session.login : false);
     if (isLogin) {
         next()
@@ -23,7 +23,7 @@ const checkLogin = (req: BodyRequest, res: Response, next: NextFunction): void =
     }
 }
 
-@controller
+@controller('/')
 export class CrowllerController {
     @get('/getData')
     @use(checkLogin)
@@ -32,7 +32,8 @@ export class CrowllerController {
         const analyzer = DellAnalyzer.getInstance()
         new Crawler(url, analyzer);
     
-        res.send('getData Success!')
+        // res.send('getData Success!')
+        res.json(getResponseData(true))
     }
 
     @get('/showData')
@@ -41,9 +42,10 @@ export class CrowllerController {
         try {
             const position = path.resolve(__dirname, '../../data/course.json');
             const result = fs.readFileSync(position, 'utf-8')
-            res.json(JSON.parse(result))
+            res.json(getResponseData(JSON.parse(result)))
         } catch (e) {
-            res.send('请登录后查看')
+            // res.send('请登录后查看')
+            res.json(getResponseData(false,'请登录后查看'))
         }
     }
 }

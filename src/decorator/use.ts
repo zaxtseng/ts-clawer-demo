@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express'
 import { LoginController, CrowllerController } from '../controller'
+import 'reflect-metadata';
 
 
 //中间件

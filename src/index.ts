@@ -1,10 +1,9 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-// import router from './router'
 import './controller/LoginController'
-import './controller/crowllerController'
-import router from './router';
+import './controller/CrowllerController'
 import cookieSession from 'cookie-session';
+import router from './router';
 
 const app = express();
 
@@ -18,7 +17,7 @@ app.use(cookieSession({
 
 app.use(router)
 
-app.listen(5001, () => {
-    console.log('server is running');
+app.listen(5000, () => {
+    console.log(`server is running localhost:5000}`);
     
 })
