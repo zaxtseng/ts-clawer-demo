@@ -18,6 +18,6 @@ app.use(cookieSession({
 app.use(router)
 
 app.listen(5000, () => {
-    console.log(`server is running localhost:5000}`);
+    console.log(`server is running http://localhost:5000`);
     
 })
